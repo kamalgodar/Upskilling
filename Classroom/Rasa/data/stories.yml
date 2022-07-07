@@ -1,0 +1,106 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: Order Path 0
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: affirm
+  - action: order_form
+  - active_loop: order_form
+
+- story: User interrupts the form and doesn't want to continue
+  steps:
+  - intent: order_item
+  - action: order_form
+  - active_loop: order_form
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+
+- story: Order Path 1
+  steps:
+  - intent: greet         # user greets
+  - action: utter_greet   # bot responds
+  - intent: oder_item     # user intend to order
+  - action: order_form    # forms get active 
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: item_type
+  - intent: stop                # users intent to stop filling the remaining form
+  - action: utter_ask_continue  # bot confirms
+  - intent: affirm                # users confirms not to continue
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
+
+# - story: Order Path 2
+#   steps:
+#   - intent: greet         
+#   - action: utter_greet   
+#   - intent: oder_item  
+#   - action: order_form    
+#   - active_loop: order_form
+#   - slot_was_set:
+#     - requested_slot: item_type
+#   - slot_was_set:
+#     - requested_slot: item_quantity
+#   - active_loop: null
+#   - action: utter_submit
+#   - action: utter_item_slots
+#   - intent: goodbye
+#   - action: utter_goodbye
+
+- story: Order Path 2
+  steps:
+  - intent: greet         
+  - action: utter_greet   
+  - intent: oder_item  
+  - action: order_form    
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: item
+  - slot_was_set:
+    - requested_slot: item_type
+  - slot_was_set:
+    - requested_slot: item_quantity
+  - active_loop: null
+  - action: utter_submit
+  - action: utter_item_slots
+  - intent: goodbye
+  - action: utter_goodbye
+
+

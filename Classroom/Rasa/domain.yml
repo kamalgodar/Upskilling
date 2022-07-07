@@ -1,0 +1,98 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - stop
+  - chitchat
+  - order_item
+  - oder_item
+  - thankful
+
+entities:
+  - item
+  - item_type
+  - item_quantity
+
+slots:
+  item:
+    type: text
+    influence_conversation: true
+    mappings:                               # here
+    - type: from_entity
+      entity: item
+      intent: order_item
+  item_type:
+    type: text
+    influence_conversation: true
+    mappings:                               # here
+    - type: from_entity
+      entity: item_type
+      intent: order_item
+  item_quantity:
+    type: text
+    influence_conversation: true
+    mappings:                               # here
+    - type: from_entity
+      entity: item_quantity
+      intent: order_item
+
+forms:
+  order_form:
+    required_slots:
+        - item
+        - item_type
+        - item_quantity
+
+responses:
+  utter_greet:
+  - text: "Hi, Welcome to Godar's resturant. How can I help you?"
+  - text: "Hello, Welcome to Godar's resturant."
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_thankful:
+  - text: "You're welcome."
+  - text: "Anytime."
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_ask_item:
+  - text: What would you like to order?
+
+  utter_ask_item_type:
+  - text: Which type would you like to order?
+  - text: What kind of {item} would you like to buy?
+
+  utter_ask_item_quantity:
+  - text: What quantity of {item} would you like to order?
+
+  utter_ask_continue:
+  - text: Are you sure you want to stop the form?
+
+  utter_item_slots:
+  - text: I will order {item_quantity} {item_type} {item}.
+  
+  utter_submit:
+  - text: I will now order requested item for you!
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

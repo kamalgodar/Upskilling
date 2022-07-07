@@ -1,0 +1,10 @@
+version: '3'
+# docker compose is only for local development
+services:
+  web:
+    build: . #builds the current folder
+    command: python manage.py runserver 0.0.0.0:8000 # this runs the server locally with command 'docker compose up'
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000" 
