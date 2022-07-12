@@ -1,0 +1,11 @@
+﻿Introduction
+This is a introduction section. this contains the brief information about the topic.
+
+Literature review
+This ia a literature review. this contains the information about what has already happened in the filed.
+
+Theory
+This contains the background related theory. All the concepts used in the research or project.
+
+Conclusion
+This contains the concluding text. What were the outputs from the project.
